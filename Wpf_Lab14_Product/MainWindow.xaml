@@ -1,0 +1,67 @@
+﻿<Window x:Class="Wpf_Lab14_Product.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Lab14_Product"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="500" >
+    <Window.Resources>
+        <local:ap_Converter x:Key="converter"/>
+        <DataTemplate x:Key="myTemplate">
+            <Border x:Name="Border" 
+                    BorderThickness="1" 
+                    Padding="5" Margin="5" 
+                    BorderBrush="#FFCC4242">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ScrollBarColorKey}}"/>
+                </Border.Background>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="50" Height="50"
+                           Source="{Binding Path=LinkPath}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Название:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Path=ProductName}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="Цена:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=ProductCost}"/>
+
+                    <Image Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Width="50" Height="50"
+                           Source="{Binding Path=Appointment, Converter={StaticResource converter}}"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+    </Window.Background>
+
+    <StackPanel>
+        <TextBlock x:Name="ProductTitle"
+                   FontSize="20" 
+                   Text="Список покупок: "
+                   HorizontalAlignment="Center" FontFamily="Arial Black"/>
+        <ListBox x:Name="lstBox" Width="400" Margin="10" 
+                 ItemTemplate="{StaticResource myTemplate}"
+                 HorizontalContentAlignment="Stretch" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <ListBox.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+            </ListBox.Background>
+            <ListBox.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+            </ListBox.BorderBrush>
+        </ListBox>
+    </StackPanel>
+</Window>
